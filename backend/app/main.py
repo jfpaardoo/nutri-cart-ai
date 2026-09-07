@@ -7,8 +7,8 @@ from app.api.routers.supermarkets import router as supermarkets_router
 from app.api.routers.menus import router as menus_router
 
 app = FastAPI(
-    title="NutriSuper Planner API",
-    description="AI Meal & Macro Planner with real-time Supermarket Integrations (Mercadona, Aldi)",
+    title="ComeYCuadra API",
+    description="Planificador nutricional con integracion de supermercados en tiempo real (Mercadona, Aldi)",
     version="1.0.0"
 )
 
@@ -30,7 +30,7 @@ app.include_router(menus_router)
 def health_check():
     return {
         "status": "healthy",
-        "service": "NutriSuper Planner",
+        "service": "ComeYCuadra",
         "patterns": ["Strategy", "Factory Method", "Adapter", "Proxy/Cache", "Chain of Responsibility", "Builder", "Repository"]
     }
 
@@ -47,4 +47,4 @@ if os.path.exists(frontend_dir):
         index_file = os.path.join(frontend_dir, "index.html")
         if os.path.exists(index_file):
             return FileResponse(index_file)
-        return {"message": "Frontend index.html not found, but API is running!"}
+        return {"message": "Frontend index.html no encontrado, pero la API esta activa."}

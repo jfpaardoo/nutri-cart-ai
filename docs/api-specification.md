@@ -1,12 +1,12 @@
 # Especificación de la API REST (FastAPI)
 
-La API corre por defecto en `http://127.0.0.1:8000`. Incluye documentación interactiva automática en `/docs` (Swagger UI) y `/redoc`.
+La API corre por defecto en `http://127.0.0.1:8000`. Incluye documentación interactiva OpenAPI en `/docs` (Swagger UI) y `/redoc`.
 
 ---
 
 ## 1. Endpoints de Supermercados
 
-### `GET /api/supermarkets`
+### GET /api/supermarkets
 Devuelve la lista de estrategias de supermercados soportadas en el sistema.
 
 **Respuesta (200 OK):**
@@ -32,7 +32,7 @@ Devuelve la lista de estrategias de supermercados soportadas en el sistema.
 
 ---
 
-### `GET /api/products/search`
+### GET /api/products/search
 Ejecuta una búsqueda de productos invocando la estrategia del supermercado elegido.
 
 **Parámetros Query:**
@@ -71,7 +71,7 @@ Ejecuta una búsqueda de productos invocando la estrategia del supermercado eleg
 
 ## 2. Endpoints de Planificación Nutricional y Cesta
 
-### `POST /api/menus/generate`
+### POST /api/menus/generate
 Genera un plan semanal completo adaptado a los macros objetivo, vinculando cada ingrediente a productos reales del supermercado y calculando la cesta de la compra.
 
 **Cuerpo de la Petición (JSON):**
@@ -90,12 +90,12 @@ Genera un plan semanal completo adaptado a los macros objetivo, vinculando cada 
 ```
 
 **Respuesta (200 OK):**
-Devuelve el objeto `meal_plan` con cada día, comida, raciones en gramos, pasos e instrucciones, y el objeto `shopping_basket` con unidades a comprar y coste total en euros.
+Devuelve el objeto `meal_plan` con cada día, raciones en gramos, pasos e instrucciones, y el objeto `shopping_basket` con unidades a comprar y coste total en euros.
 
 ---
 
-### `GET /api/menus/{id}`
+### GET /api/menus/{id}
 Consulta un menú previamente generado mediante su identificador único.
 
-### `GET /api/menus/{id}/basket`
-Devuelve el cálculo optimizado de compra para el plan indicado.
+### GET /api/menus/{id}/basket
+Devuelve el desglose de compra para el plan indicado.

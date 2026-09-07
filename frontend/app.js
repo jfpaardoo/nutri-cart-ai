@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Auto-balance macros proportionally to calories
 function autoBalanceMacros() {
-  // Common athletic split: 30% Prot, 45% Carb, 25% Fat
   const protKcal = state.targetCalories * 0.28;
   const carbKcal = state.targetCalories * 0.42;
   const fatKcal = state.targetCalories * 0.30;
@@ -138,7 +137,7 @@ async function generateMealPlan() {
 
     if (!response.ok) {
       const err = await response.json();
-      throw new Error(err.detail || "Error al generar el menú");
+      throw new Error(err.detail || "Error al generar el menu");
     }
 
     const data = await response.json();
@@ -160,11 +159,9 @@ function renderResults() {
   document.getElementById("metricsRow").style.display = "grid";
   document.getElementById("viewTabs").style.display = "flex";
 
-  // Metrics
   const totalCost = state.currentBasket.total_cost;
   const costPerDay = (totalCost / state.daysCount).toFixed(2);
 
-  // Compute daily averages
   let totalKcal = 0;
   let totalProt = 0;
   state.currentMealPlan.days.forEach((d) => {
@@ -174,10 +171,10 @@ function renderResults() {
   const avgKcal = Math.round(totalKcal / state.daysCount);
   const avgProt = Math.round(totalProt / state.daysCount);
 
-  document.getElementById("metricTotalCost").textContent = `${totalCost.toFixed(2)} €`;
-  document.getElementById("metricCostPerDay").textContent = `${costPerDay} € / día`;
+  document.getElementById("metricTotalCost").textContent = `${totalCost.toFixed(2)} EUR`;
+  document.getElementById("metricCostPerDay").textContent = `${costPerDay} EUR / dia`;
   document.getElementById("metricAvgCalories").textContent = `${avgKcal} kcal`;
-  document.getElementById("metricAvgProtein").textContent = `${avgProt}g proteína`;
+  document.getElementById("metricAvgProtein").textContent = `${avgProt}g proteina`;
   document.getElementById("metricSupermarket").textContent = state.supermarket.toUpperCase();
   document.getElementById("metricItemsCount").textContent = `${state.currentBasket.items.length} productos en cesta`;
   document.getElementById("basketCountBadge").textContent = state.currentBasket.items.length;
@@ -201,7 +198,7 @@ function renderMeals() {
         const ingredientsHtml = meal.ingredients
           .map((ing) => {
             const matchedBadge = ing.matched_product
-              ? `<span class="ing-matched-badge">${ing.matched_product.name} (${ing.matched_product.price}€)</span>`
+              ? `<span class="ing-matched-badge">${ing.matched_product.name} (${ing.matched_product.price} EUR)</span>`
               : "";
             return `
               <li>
@@ -220,7 +217,7 @@ function renderMeals() {
           <div class="recipe-card">
             <div class="recipe-header">
               <span class="recipe-type">${meal.meal_type}</span>
-              <span class="recipe-time">⏱️ ${meal.prep_time_minutes} min</span>
+              <span class="recipe-time">${meal.prep_time_minutes} min</span>
             </div>
             <h4 class="recipe-title">${meal.title}</h4>
 
@@ -236,7 +233,7 @@ function renderMeals() {
             </ul>
 
             <details class="recipe-instructions">
-              <summary>Ver pasos de preparación (${meal.instructions.length})</summary>
+              <summary>Pasos de preparacion (${meal.instructions.length})</summary>
               <ol>${instructionsHtml}</ol>
             </details>
           </div>
@@ -246,7 +243,7 @@ function renderMeals() {
 
     daySection.innerHTML = `
       <div class="day-header">
-        <div class="day-title">📅 ${day.day_name}</div>
+        <div class="day-title">${day.day_name}</div>
         <div class="day-macros">
           <span>Kcal: <strong>${day.total_macros.calories}</strong></span>
           <span>Prot: <strong>${day.total_macros.protein}g</strong></span>
@@ -275,7 +272,7 @@ function renderBasket() {
 
     const imgTag = p.image_url
       ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy" />`
-      : `<span style="font-size: 2rem;">🛒</span>`;
+      : `<span style="font-size: 0.9rem; color: var(--text-dim);">Sin imagen</span>`;
 
     card.innerHTML = `
       <div class="basket-img-wrapper">
@@ -285,14 +282,14 @@ function renderBasket() {
         <span class="basket-item-brand">${p.brand || p.supermarket}</span>
         <h4 class="basket-item-name">${p.name}</h4>
         <span style="font-size: 0.75rem; color: var(--text-dim);">
-          Necesarios: ${item.grams_needed}g · Formato: ${p.package_format}
+          Requeridos: ${item.grams_needed}g · Formato: ${p.package_format}
         </span>
       </div>
       <div class="basket-item-pricing">
         <div class="basket-units">
-          Comprar: <strong>${item.units_to_buy} ud(s)</strong> x ${p.price.toFixed(2)}€
+          Comprar: <strong>${item.units_to_buy} ud(s)</strong> x ${p.price.toFixed(2)} EUR
         </div>
-        <div class="basket-cost">${item.total_cost.toFixed(2)} €</div>
+        <div class="basket-cost">${item.total_cost.toFixed(2)} EUR</div>
       </div>
     `;
 
@@ -328,7 +325,7 @@ async function searchLiveCatalog() {
 
   if (!query) return;
 
-  resultsDiv.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-dim);">Consultando API de ${state.supermarket}...</span>`;
+  resultsDiv.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-dim);">Consultando catalogo de ${state.supermarket}...</span>`;
 
   try {
     const res = await fetch(
@@ -344,14 +341,14 @@ async function searchLiveCatalog() {
     resultsDiv.innerHTML = data.products
       .slice(0, 5)
       .map((p) => {
-        const img = p.image_url ? `<img src="${p.image_url}" />` : `<span>🛒</span>`;
+        const img = p.image_url ? `<img src="${p.image_url}" />` : `<span>[Item]</span>`;
         return `
           <div class="mini-product-item">
             <div class="mini-product-info">
               ${img}
               <span class="mini-product-name" title="${p.name}">${p.name}</span>
             </div>
-            <span class="mini-product-price">${p.price.toFixed(2)} €</span>
+            <span class="mini-product-price">${p.price.toFixed(2)} EUR</span>
           </div>
         `;
       })
