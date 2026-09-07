@@ -29,7 +29,7 @@ const generateSpinner = document.getElementById("generateSpinner");
 // Initialize Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
   kcalRange.addEventListener("input", (e) => {
-    state.targetCalories = parseInt(e.target.value);
+    state.targetCalories = Number.parseInt(e.target.value, 10);
     kcalDisplay.textContent = `${state.targetCalories.toLocaleString()} kcal`;
     autoBalanceMacros();
     updateMacroBars();
@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   [proteinInput, carbsInput, fatInput].forEach((input) => {
     input.addEventListener("input", () => {
-      state.targetProtein = parseInt(proteinInput.value) || 0;
-      state.targetCarbs = parseInt(carbsInput.value) || 0;
-      state.targetFat = parseInt(fatInput.value) || 0;
+      state.targetProtein = Number.parseInt(proteinInput.value, 10) || 0;
+      state.targetCarbs = Number.parseInt(carbsInput.value, 10) || 0;
+      state.targetFat = Number.parseInt(fatInput.value, 10) || 0;
       updateMacroBars();
     });
   });
