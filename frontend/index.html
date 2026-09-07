@@ -3,190 +3,333 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ComeYCuadra | Planificador Nutricional y Cesta de Supermercado</title>
+  <title>ComeYCuadra - Planificador Nutricional y Cesta de Supermercado</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-layout">
-    <!-- Navbar Header -->
-    <header class="navbar">
-      <div class="brand">
-        <div class="brand-text">
-          <h1>Come<span>Y</span>Cuadra</h1>
-          <p class="tagline">Planificacion Nutricional & Precios Reales de Supermercado</p>
+  <div class="app-wrapper">
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="nav-container">
+        <div class="brand-group">
+          <div class="brand-symbol">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-meta">
+            <div class="brand-name">Come<span class="highlight">Y</span>Cuadra</div>
+            <div class="brand-tag">Nutricion de Precision & Precios Reales</div>
+          </div>
         </div>
-      </div>
-      
-      <div class="strategy-selector">
-        <div class="selector-label">Estrategia Activa:</div>
-        <div class="supermarket-pill active" id="btnMercadona" onclick="selectSupermarket('mercadona')">
-          <span class="pill-dot"></span> Mercadona
-        </div>
-        <div class="supermarket-pill" id="btnAldi" onclick="selectSupermarket('aldi')">
-          <span class="pill-dot"></span> Aldi
-        </div>
-      </div>
 
-      <div class="postal-widget">
-        <label for="postalCodeInput">Codigo Postal:</label>
-        <input type="text" id="postalCodeInput" value="46001" maxlength="5" />
+        <!-- Center: Supermarket Strategy Selector -->
+        <div class="supermarket-switch-container">
+          <span class="switch-title">Proveedor:</span>
+          <div class="switch-pills">
+            <button class="supermarket-pill active" id="btnMercadona" onclick="selectSupermarket('mercadona')">
+              <span class="live-dot"></span>
+              <span class="pill-name">Mercadona</span>
+              <span class="pill-badge">API Oficial</span>
+            </button>
+            <button class="supermarket-pill" id="btnAldi" onclick="selectSupermarket('aldi')">
+              <span class="live-dot"></span>
+              <span class="pill-name">Aldi</span>
+              <span class="pill-badge">Catalogo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Postal Code & Status -->
+        <div class="nav-right">
+          <div class="postal-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="postal-label">CP:</span>
+            <input type="text" id="postalCodeInput" value="46001" maxlength="5" title="Codigo postal para consultar stock y precios locales" />
+          </div>
+          <a href="https://github.com/jfpaardoo/nutri-cart-ai" target="_blank" rel="noreferrer" class="github-link" title="Ver repositorio en GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="main-content">
-      <!-- Left / Configuration Sidebar -->
-      <aside class="control-panel">
-        <div class="card panel-card">
-          <div class="panel-header">
-            <h2>Objetivos Diarios</h2>
-            <span class="badge">Patron Builder</span>
-          </div>
-
-          <div class="form-group">
-            <div class="group-header">
-              <label>Calorias Objetivo</label>
-              <span class="val-display" id="kcalDisplay">2.100 kcal</span>
+    <!-- App Body Grid -->
+    <main class="dashboard-grid">
+      <!-- Left Sidebar: Macro & Plan Configuration -->
+      <aside class="config-sidebar">
+        <!-- Daily Macro Targets Card -->
+        <section class="glass-card config-card">
+          <div class="card-head">
+            <div class="head-title">
+              <h2>Objetivos Diarios</h2>
+              <span class="sub-label">Calorias y Distribucion</span>
             </div>
-            <input type="range" id="kcalRange" min="1200" max="3800" step="50" value="2100" />
+            <div class="chip-badge">Builder Pattern</div>
           </div>
 
-          <div class="macro-grid">
-            <div class="macro-item macro-protein">
-              <span class="macro-name">Proteina</span>
-              <div class="macro-input-wrapper">
+          <!-- Calories Slider with Quick Presets -->
+          <div class="slider-block">
+            <div class="slider-header">
+              <span class="label">Meta Energetica</span>
+              <span class="kcal-number" id="kcalDisplay">2.100 <small>kcal</small></span>
+            </div>
+            <div class="range-wrapper">
+              <input type="range" id="kcalRange" min="1400" max="3600" step="50" value="2100" />
+            </div>
+            <div class="preset-buttons">
+              <button class="preset-chip" onclick="setKcalPreset(1800)">Deficit (1.800)</button>
+              <button class="preset-chip active" onclick="setKcalPreset(2100)">Normo (2.100)</button>
+              <button class="preset-chip" onclick="setKcalPreset(2600)">Superavit (2.600)</button>
+            </div>
+          </div>
+
+          <!-- Macro Distribution Inputs -->
+          <div class="macro-inputs-grid">
+            <div class="macro-box box-protein">
+              <div class="macro-box-header">
+                <span class="macro-symbol prot">P</span>
+                <span class="macro-title">Proteina</span>
+              </div>
+              <div class="macro-val-row">
                 <input type="number" id="proteinInput" value="145" min="40" max="300" />
-                <span class="unit">g</span>
+                <span class="val-unit">g</span>
               </div>
+              <span class="macro-calc-cal" id="proteinKcalDisplay">580 kcal</span>
             </div>
 
-            <div class="macro-item macro-carbs">
-              <span class="macro-name">Carbohidratos</span>
-              <div class="macro-input-wrapper">
+            <div class="macro-box box-carbs">
+              <div class="macro-box-header">
+                <span class="macro-symbol carb">C</span>
+                <span class="macro-title">Carbohidratos</span>
+              </div>
+              <div class="macro-val-row">
                 <input type="number" id="carbsInput" value="210" min="40" max="500" />
-                <span class="unit">g</span>
+                <span class="val-unit">g</span>
               </div>
+              <span class="macro-calc-cal" id="carbsKcalDisplay">840 kcal</span>
             </div>
 
-            <div class="macro-item macro-fat">
-              <span class="macro-name">Grasas</span>
-              <div class="macro-input-wrapper">
+            <div class="macro-box box-fat">
+              <div class="macro-box-header">
+                <span class="macro-symbol fat">G</span>
+                <span class="macro-title">Grasas</span>
+              </div>
+              <div class="macro-val-row">
                 <input type="number" id="fatInput" value="65" min="20" max="180" />
-                <span class="unit">g</span>
+                <span class="val-unit">g</span>
+              </div>
+              <span class="macro-calc-cal" id="fatKcalDisplay">585 kcal</span>
+            </div>
+          </div>
+
+          <!-- Ratio Progress Bar -->
+          <div class="ratio-progress-wrapper">
+            <div class="ratio-labels">
+              <span>Ratio Calorico:</span>
+              <span class="r-text"><span class="c-prot" id="protPct">28% P</span> · <span class="c-carb" id="carbPct">42% C</span> · <span class="c-fat" id="fatPct">30% G</span></span>
+            </div>
+            <div class="segmented-bar">
+              <div class="segment seg-prot" id="barProt" style="width: 28%"></div>
+              <div class="segment seg-carb" id="barCarb" style="width: 42%"></div>
+              <div class="segment seg-fat" id="barFat" style="width: 30%"></div>
+            </div>
+          </div>
+
+          <!-- Planning Options (Days & Meals) -->
+          <div class="plan-options">
+            <div class="option-row">
+              <label>Dias a planificar:</label>
+              <div class="button-toggle-group">
+                <button class="opt-btn" onclick="setDays(3, this)">3 Dias</button>
+                <button class="opt-btn" onclick="setDays(5, this)">5 Dias</button>
+                <button class="opt-btn active" onclick="setDays(7, this)">7 Dias</button>
+              </div>
+            </div>
+
+            <div class="option-row">
+              <label>Comidas por dia:</label>
+              <div class="button-toggle-group">
+                <button class="opt-btn active" onclick="setMeals(3, this)">3 Comidas</button>
+                <button class="opt-btn" onclick="setMeals(4, this)">4 (+ Snack)</button>
               </div>
             </div>
           </div>
 
-          <div class="macro-bar-container">
-            <div class="macro-bar-label">Distribucion calorica:</div>
-            <div class="macro-stacked-bar">
-              <div class="bar-segment bar-prot" id="barProt" style="width: 28%"></div>
-              <div class="bar-segment bar-carb" id="barCarb" style="width: 42%"></div>
-              <div class="bar-segment bar-fat" id="barFat" style="width: 30%"></div>
-            </div>
-            <div class="bar-legend">
-              <span class="leg-prot">Proteina: <strong id="protPct">28%</strong></span>
-              <span class="leg-carb">Carbohidratos: <strong id="carbPct">42%</strong></span>
-              <span class="leg-fat">Grasas: <strong id="fatPct">30%</strong></span>
-            </div>
-          </div>
-
-          <hr class="divider" />
-
-          <div class="form-group">
-            <label>Planificacion Semanal</label>
-            <div class="toggle-group">
-              <button class="toggle-btn" onclick="setDays(3, this)">3 Dias</button>
-              <button class="toggle-btn" onclick="setDays(5, this)">5 Dias</button>
-              <button class="toggle-btn active" onclick="setDays(7, this)">7 Dias</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Comidas al Dia</label>
-            <div class="toggle-group">
-              <button class="toggle-btn active" onclick="setMeals(3, this)">3 (Desayuno/Comida/Cena)</button>
-              <button class="toggle-btn" onclick="setMeals(4, this)">4 (+ Snack)</button>
-            </div>
-          </div>
-
-          <button class="btn-generate" id="btnGenerate" onclick="generateMealPlan()">
+          <!-- Action Button -->
+          <button class="btn-generate-main" id="btnGenerate" onclick="generateMealPlan()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
             <span class="btn-text">Generar Menu y Cesta</span>
-            <div class="spinner" id="generateSpinner"></div>
+            <div class="btn-spinner" id="generateSpinner"></div>
           </button>
-        </div>
+        </section>
 
-        <!-- Quick Supermarket Search Tool (Live Strategy Tester) -->
-        <div class="card test-tool-card">
-          <div class="panel-header">
-            <h3>Explorador de Catalogo</h3>
-            <span class="badge badge-subtle">Strategy Pattern</span>
+        <!-- Live Supermarket Strategy Search Card -->
+        <section class="glass-card tool-card">
+          <div class="card-head">
+            <div class="head-title">
+              <h3>Explorador de Catalogo</h3>
+              <span class="sub-label">Estrategia en tiempo real: <strong id="currentStrategyName">Mercadona</strong></span>
+            </div>
+            <span class="chip-badge subtle">Strategy Pattern</span>
           </div>
-          <p class="tool-desc">Consulta en tiempo real en <strong id="currentStrategyName">Mercadona</strong>:</p>
-          <div class="search-box">
-            <input type="text" id="liveSearchInput" placeholder="Ej: pechuga, avena, salmon..." onkeyup="if(event.key==='Enter') searchLiveCatalog()" />
-            <button onclick="searchLiveCatalog()">Buscar</button>
+
+          <div class="search-field">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="liveSearchInput" placeholder="Buscar producto (ej: pechuga, avena...)" onkeyup="if(event.key==='Enter') searchLiveCatalog()" />
+            <button class="search-submit" onclick="searchLiveCatalog()">Buscar</button>
           </div>
-          <div id="liveSearchResults" class="live-results"></div>
-        </div>
+
+          <div class="quick-tags">
+            <span class="tag" onclick="quickSearch('pechuga')">Pechuga</span>
+            <span class="tag" onclick="quickSearch('arroz')">Arroz</span>
+            <span class="tag" onclick="quickSearch('huevos')">Huevos</span>
+            <span class="tag" onclick="quickSearch('salmon')">Salmon</span>
+            <span class="tag" onclick="quickSearch('avena')">Avena</span>
+          </div>
+
+          <div id="liveSearchResults" class="live-results-feed"></div>
+        </section>
       </aside>
 
-      <!-- Right / Main Results Area -->
-      <section class="results-area">
-        <!-- Top Metrics Bar -->
-        <div class="metrics-row" id="metricsRow" style="display: none;">
-          <div class="metric-card">
-            <span class="metric-title">Coste Estimado Cesta</span>
-            <div class="metric-val text-green" id="metricTotalCost">-- EUR</div>
-            <span class="metric-sub" id="metricCostPerDay">-- EUR / dia</span>
+      <!-- Right Content: Results Area -->
+      <section class="results-viewport">
+        <!-- Hero Metrics Banner (Hidden initially) -->
+        <div class="hero-metrics-grid" id="metricsRow" style="display: none;">
+          <div class="metric-glass-card cost-card">
+            <div class="metric-top">
+              <span class="m-label">Coste Estimado Cesta</span>
+              <span class="m-badge">Ahorro Optimo</span>
+            </div>
+            <div class="m-value text-emerald" id="metricTotalCost">-- EUR</div>
+            <div class="m-footer">
+              <span id="metricCostPerDay">-- EUR / dia</span> · <span id="metricItemsCount">-- productos</span>
+            </div>
           </div>
-          <div class="metric-card">
-            <span class="metric-title">Promedio Diario</span>
-            <div class="metric-val" id="metricAvgCalories">-- kcal</div>
-            <span class="metric-sub" id="metricAvgProtein">-- g proteina</span>
+
+          <div class="metric-glass-card">
+            <div class="metric-top">
+              <span class="m-label">Promedio Diario</span>
+              <span class="m-badge">Nutricion</span>
+            </div>
+            <div class="m-value" id="metricAvgCalories">-- kcal</div>
+            <div class="m-footer" id="metricAvgProtein">-- g proteina diaria</div>
           </div>
-          <div class="metric-card">
-            <span class="metric-title">Supermercado</span>
-            <div class="metric-val text-accent" id="metricSupermarket">--</div>
-            <span class="metric-sub" id="metricItemsCount">-- productos en cesta</span>
+
+          <div class="metric-glass-card">
+            <div class="metric-top">
+              <span class="m-label">Supermercado</span>
+              <span class="m-badge" id="metricSupermarketBadge">Estrategia</span>
+            </div>
+            <div class="m-value text-cyan" id="metricSupermarket">MERCADONA</div>
+            <div class="m-footer">Precios oficiales actualizados</div>
           </div>
         </div>
 
-        <!-- View Switcher Tabs -->
-        <div class="view-tabs" id="viewTabs" style="display: none;">
-          <button class="tab-btn active" id="tabMeals" onclick="switchTab('meals')">
-            Menu Semanal y Recetas
-          </button>
-          <button class="tab-btn" id="tabBasket" onclick="switchTab('basket')">
-            Cesta de la Compra (<span id="basketCountBadge">0</span>)
-          </button>
-        </div>
+        <!-- Navigation Tabs -->
+        <div class="view-tabs-bar" id="viewTabs" style="display: none;">
+          <div class="tab-buttons">
+            <button class="tab-pill active" id="tabMeals" onclick="switchTab('meals')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Menu Semanal y Recetas</span>
+            </button>
+            <button class="tab-pill" id="tabBasket" onclick="switchTab('basket')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>Cesta de la Compra (<span id="basketCountBadge">0</span>)</span>
+            </button>
+          </div>
 
-        <!-- Placeholder when empty -->
-        <div class="welcome-card" id="welcomeCard">
-          <h2>Planifica tu semana nutricional con precios reales</h2>
-          <p>Ajusta las calorias y macronutrientes en el panel lateral y pulsa <strong>Generar Menu y Cesta</strong>.</p>
-          <div class="patterns-showcase">
-            <div class="pattern-tag"><strong>Strategy:</strong> Mercadona / Aldi</div>
-            <div class="pattern-tag"><strong>Chain of Resp.:</strong> OFF + USDA Nutrition</div>
-            <div class="pattern-tag"><strong>Builder:</strong> Weekly Menu Constructor</div>
-            <div class="pattern-tag"><strong>Proxy Cache:</strong> Rate-limit Protection</div>
+          <!-- Day quick filter (only shown on meals tab) -->
+          <div class="day-filters" id="dayFilterGroup">
+            <button class="day-chip active" onclick="filterDay('all', this)">Todos</button>
+            <button class="day-chip" onclick="filterDay('Lunes', this)">Lunes</button>
+            <button class="day-chip" onclick="filterDay('Martes', this)">Martes</button>
+            <button class="day-chip" onclick="filterDay('Miercoles', this)">Miercoles</button>
+            <button class="day-chip" onclick="filterDay('Jueves', this)">Jueves</button>
+            <button class="day-chip" onclick="filterDay('Viernes', this)">Viernes</button>
+            <button class="day-chip" onclick="filterDay('Sabado', this)">Sabado</button>
+            <button class="day-chip" onclick="filterDay('Domingo', this)">Domingo</button>
           </div>
         </div>
 
-        <!-- Meal Plan View -->
-        <div class="meals-container" id="mealsContainer" style="display: none;"></div>
-
-        <!-- Shopping Basket View -->
-        <div class="basket-container" id="basketContainer" style="display: none;">
-          <div class="basket-header">
-            <h3>Lista de la compra calculada para la semana</h3>
-            <p>Cantidades agrupadas y redondeadas por formato de venta en tienda.</p>
+        <!-- Initial Placeholder State -->
+        <div class="welcome-screen" id="welcomeCard">
+          <div class="welcome-graphic">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
           </div>
-          <div class="basket-grid" id="basketGrid"></div>
+          <h2>Planifica tu alimentacion con precision cientifica</h2>
+          <p class="welcome-text">Configura tus calorias y macronutrientes objetivo en el panel izquierdo y pulsa <strong>Generar Menu y Cesta</strong> para obtener un menu de 7 dias sincronizado con los precios reales de tu supermercado.</p>
+          
+          <div class="architecture-pills">
+            <div class="arch-pill">
+              <strong>Strategy Pattern</strong>
+              <span>Mercadona / Aldi</span>
+            </div>
+            <div class="arch-pill">
+              <strong>Chain of Responsibility</strong>
+              <span>Resolucion Nutricional</span>
+            </div>
+            <div class="arch-pill">
+              <strong>Builder Pattern</strong>
+              <span>Constructor de Menus</span>
+            </div>
+            <div class="arch-pill">
+              <strong>Cache Proxy</strong>
+              <span>Optimizacion de Consultas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meal Plan Container -->
+        <div class="meals-flow" id="mealsContainer" style="display: none;"></div>
+
+        <!-- Shopping Basket Container -->
+        <div class="basket-flow" id="basketContainer" style="display: none;">
+          <div class="basket-banner">
+            <div class="banner-info">
+              <h3>Desglose de Compra Optimizado</h3>
+              <p>Cantidades agrupadas por producto y redondeadas al formato de venta de tienda para minimizar el desperdicio.</p>
+            </div>
+            <button class="btn-copy-list" onclick="copyShoppingList()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copiar Lista de Compra</span>
+            </button>
+          </div>
+
+          <div class="basket-cards-grid" id="basketGrid"></div>
         </div>
       </section>
     </main>

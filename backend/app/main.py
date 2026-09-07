@@ -2,7 +2,6 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from app.api.routers.supermarkets import router as supermarkets_router
 from app.api.routers.menus import router as menus_router
 
@@ -21,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include Routers
+# Include Routers first so /api takes priority over static files
 app.include_router(supermarkets_router)
 app.include_router(menus_router)
 
@@ -35,16 +34,9 @@ def health_check():
     }
 
 
-# Frontend static files path
+# Mount Frontend static directory at root
 current_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.abspath(os.path.join(current_dir, "..", "..", "frontend"))
 
 if os.path.exists(frontend_dir):
-    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
-
-    @app.get("/")
-    def serve_frontend():
-        index_file = os.path.join(frontend_dir, "index.html")
-        if os.path.exists(index_file):
-            return FileResponse(index_file)
-        return {"message": "Frontend index.html no encontrado, pero la API esta activa."}
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
