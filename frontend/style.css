@@ -1941,3 +1941,459 @@ body {
 .nutri-prot .nutri-num { color: var(--accent-cyan); }
 .nutri-carb .nutri-num { color: var(--accent-amber); }
 .nutri-fat .nutri-num { color: var(--accent-rose); }
+
+
+/* ==========================================================================
+   Comprehensive Mobile-First Responsive Stylesheet
+   Breakpoints: 1024px (Tablets), 768px (Phablets/Phones), 480px (Small Phones)
+   ========================================================================== */
+
+/* Global Mobile Guardrails */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch targets optimization */
+button, input, select, .opt-btn, .preset-chip, .tag, .day-chip, .tab-pill {
+  touch-action: manipulation;
+}
+
+/* --------------------------------------------------------------------------
+   Breakpoint 1: Tablet / Compact Desktop (<= 1024px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .app-wrapper {
+    max-width: 100%;
+    padding: 1.25rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .config-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .meals-deck {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .basket-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Breakpoint 2: Phablets & Mobile Phones (<= 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .app-wrapper {
+    padding: 0.75rem 0.65rem;
+    gap: 1rem;
+  }
+
+  /* Top Navigation Bar: Mobile App Header Layout */
+  .top-nav {
+    padding: 0.75rem 0.85rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.25rem;
+  }
+
+  .nav-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .brand-group {
+    order: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .brand-symbol svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .brand-tag {
+    display: none; /* Hide subtitle on mobile for cleaner top bar */
+  }
+
+  .nav-right {
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .postal-pill {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+  }
+
+  .postal-pill input {
+    width: 48px;
+    font-size: 0.78rem;
+  }
+
+  .github-link {
+    width: 32px;
+    height: 32px;
+  }
+
+  .github-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .supermarket-switch-container {
+    order: 3;
+    width: 100%;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .switch-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+  }
+
+  .switch-pills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0.4rem;
+  }
+
+  .supermarket-pill {
+    width: 100%;
+    justify-content: center;
+    padding: 0.55rem 0.5rem;
+    min-height: 44px;
+    font-size: 0.82rem;
+  }
+
+  .supermarket-pill .pill-badge {
+    font-size: 0.58rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  /* Cards Padding */
+  .glass-card {
+    padding: 1.15rem 0.95rem;
+    border-radius: var(--radius-md);
+  }
+
+  .card-head {
+    margin-bottom: 1rem;
+  }
+
+  .head-title h2 {
+    font-size: 1.05rem;
+  }
+
+  .head-title h3 {
+    font-size: 0.95rem;
+  }
+
+  /* Hero Metrics Banner on Mobile */
+  .hero-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .metric-glass-card {
+    padding: 0.9rem 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .m-label {
+    font-size: 0.68rem;
+  }
+
+  .m-value {
+    font-size: 1.35rem;
+    margin: 0.35rem 0;
+  }
+
+  .m-footer {
+    font-size: 0.7rem;
+  }
+
+  /* View Tabs & Day Filters: Swipable Horizontal Controls */
+  .view-tabs-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .tab-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0.4rem;
+  }
+
+  .tab-pill {
+    justify-content: center;
+    padding: 0.65rem 0.5rem;
+    min-height: 44px;
+    font-size: 0.82rem;
+  }
+
+  .day-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.4rem;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+
+  .day-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .day-chip {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.75rem;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Catalog Explorer: Mobile Search & Swipable Tags */
+  .quick-tags {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.4rem;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+
+  .quick-tags::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quick-tags .tag {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    min-height: 32px;
+  }
+
+  /* Meals Deck on Mobile: Single Column */
+  .meals-deck {
+    grid-template-columns: 1fr;
+    padding: 0.85rem 0.75rem;
+    gap: 0.85rem;
+  }
+
+  .day-panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .day-macro-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .recipe-box {
+    padding: 1rem 0.85rem;
+    gap: 0.85rem;
+  }
+
+  .recipe-heading {
+    font-size: 1rem;
+  }
+
+  /* Ingredient items on mobile */
+  .ingredient-card-item {
+    padding: 0.5rem 0.65rem;
+    gap: 0.6rem;
+  }
+
+  .ing-qty-pill {
+    min-width: 50px;
+    padding: 0.25rem 0.35rem;
+  }
+
+  .ing-qty-pill .qty-num {
+    font-size: 0.8rem;
+  }
+
+  .ing-display-name {
+    font-size: 0.8rem;
+  }
+
+  .matched-product-badge {
+    max-width: 100%;
+    white-space: normal;
+    font-size: 0.65rem;
+  }
+
+  /* Shopping Basket Mobile */
+  .basket-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem 0.9rem;
+  }
+
+  .btn-copy-list {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  .basket-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .basket-item-tile {
+    padding: 1rem 0.9rem;
+  }
+
+  /* Welcome Screen on Mobile */
+  .welcome-screen {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .welcome-screen h2 {
+    font-size: 1.35rem;
+  }
+
+  .architecture-pills {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Breakpoint 3: Small Mobile Devices (<= 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .app-wrapper {
+    padding: 0.5rem 0.4rem;
+    gap: 0.85rem;
+  }
+
+  /* Macro Inputs 3-column tight adaptation */
+  .macro-inputs-grid {
+    gap: 0.4rem;
+  }
+
+  .macro-box {
+    padding: 0.65rem 0.4rem;
+  }
+
+  .macro-title {
+    font-size: 0.68rem;
+  }
+
+  .macro-val-row input {
+    font-size: 1rem;
+  }
+
+  .val-unit {
+    font-size: 0.68rem;
+  }
+
+  .macro-calc-cal {
+    font-size: 0.6rem;
+  }
+
+  /* Kcal Preset Buttons */
+  .preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+
+  .preset-chip {
+    padding: 0.45rem 0.2rem;
+    font-size: 0.68rem;
+    text-align: center;
+  }
+
+  /* Hero Metrics on very small devices: 1 col */
+  .hero-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Action Button full width touchable */
+  .btn-generate-main {
+    padding: 0.9rem 1rem;
+    min-height: 50px;
+    font-size: 0.95rem;
+  }
+
+  /* Product Modal: Mobile Bottom-Sheet Appearance */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-card {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    padding: 1.25rem 1rem 1.75rem 1rem;
+    border-bottom: none;
+  }
+
+  .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .modal-img-card {
+    height: 150px;
+  }
+
+  .modal-nutrition-block .nutrition-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+}
