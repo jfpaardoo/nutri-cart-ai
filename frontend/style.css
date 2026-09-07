@@ -66,16 +66,14 @@ body {
 
 /* Top Navigation Bar */
 .top-nav {
-  position: sticky;
-  top: 1rem;
-  z-index: 100;
-  background: rgba(14, 20, 36, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  z-index: 10;
+  background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-lg);
   padding: 0.85rem 1.5rem;
   box-shadow: var(--shadow-card);
+  margin-bottom: 0.5rem;
 }
 
 .nav-container {
@@ -1266,4 +1264,321 @@ body {
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--primary-light);
+}
+
+
+/* ==========================================================================
+   Recipe Cards & Ingredient Breakdown Styles
+   ========================================================================== */
+
+.recipe-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-box:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.recipe-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-meal-type {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--primary-light);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.recipe-time-tag {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.recipe-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-pure);
+}
+
+.recipe-macros-strip {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.pill-macro {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--radius-xs);
+  display: inline-flex;
+  align-items: center;
+}
+
+.pill-kcal {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-pure);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pill-prot {
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+}
+
+.pill-carb {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--accent-amber);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.pill-fat {
+  background: rgba(244, 63, 94, 0.12);
+  color: var(--accent-rose);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+/* Ingredients Deck & Cards */
+.ingredients-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.85rem;
+}
+
+.section-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sec-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.sec-count {
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-dim);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.ingredients-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ingredient-card-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  transition: var(--transition);
+}
+
+.ingredient-card-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.ing-qty-pill {
+  flex-shrink: 0;
+  min-width: 58px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.12));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-xs);
+  padding: 0.3rem 0.45rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+
+.ing-qty-pill .qty-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--primary-light);
+}
+
+.ing-qty-pill .qty-unit {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.ing-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ing-main-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ing-display-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-pure);
+}
+
+.matched-product-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 4px;
+  padding: 0.18rem 0.45rem;
+  font-size: 0.68rem;
+  max-width: 240px;
+}
+
+.matched-product-badge .store-tag {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  font-size: 0.62rem;
+}
+
+.matched-product-badge .product-title {
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.matched-product-badge .product-price {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+
+.matched-pending {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.ing-macros-sub {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-family: 'Space Grotesk', monospace;
+}
+
+/* Preparation Steps Accordion */
+.instructions-accordion {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.instructions-accordion summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text-main);
+  outline: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.instructions-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.instructions-accordion summary::before {
+  content: "▾";
+  font-size: 0.85rem;
+  color: var(--primary-light);
+  transition: transform 0.2s ease;
+}
+
+.instructions-accordion:not([open]) summary::before {
+  content: "▸";
+}
+
+.steps-numbered-list {
+  list-style: none;
+  margin-top: 0.75rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.step-badge {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid var(--primary-light);
+  color: var(--primary-light);
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.step-text {
+  flex: 1;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
 }

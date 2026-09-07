@@ -15,7 +15,7 @@
     <header class="top-nav">
       <div class="nav-container">
         <div class="brand-group">
-          <div class="brand-symbol">
+          <div class="brand-symbol" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M2 17L12 22L22 17" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -23,22 +23,22 @@
             </svg>
           </div>
           <div class="brand-meta">
-            <div class="brand-name">Come<span class="highlight">Y</span>Cuadra</div>
-            <div class="brand-tag">Nutricion de Precision & Precios Reales</div>
+            <h1 class="brand-name">Come<span class="highlight">Y</span>Cuadra</h1>
+            <p class="brand-tag">Nutricion de Precision & Precios Reales</p>
           </div>
         </div>
 
         <!-- Center: Supermarket Strategy Selector -->
-        <div class="supermarket-switch-container">
+        <div class="supermarket-switch-container" role="region" aria-label="Seleccion de supermercado">
           <span class="switch-title">Proveedor:</span>
           <div class="switch-pills">
-            <button class="supermarket-pill active" id="btnMercadona" onclick="selectSupermarket('mercadona')">
-              <span class="live-dot"></span>
+            <button type="button" class="supermarket-pill active" id="btnMercadona" onclick="selectSupermarket('mercadona')">
+              <span class="live-dot" aria-hidden="true"></span>
               <span class="pill-name">Mercadona</span>
               <span class="pill-badge">API Oficial</span>
             </button>
-            <button class="supermarket-pill" id="btnAldi" onclick="selectSupermarket('aldi')">
-              <span class="live-dot"></span>
+            <button type="button" class="supermarket-pill" id="btnAldi" onclick="selectSupermarket('aldi')">
+              <span class="live-dot" aria-hidden="true"></span>
               <span class="pill-name">Aldi</span>
               <span class="pill-badge">Catalogo</span>
             </button>
@@ -48,15 +48,15 @@
         <!-- Right: Postal Code & Status -->
         <div class="nav-right">
           <div class="postal-pill">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            <span class="postal-label">CP:</span>
-            <input type="text" id="postalCodeInput" value="46001" maxlength="5" title="Codigo postal para consultar stock y precios locales" />
+            <label for="postalCodeInput" class="postal-label">CP:</label>
+            <input type="text" id="postalCodeInput" value="46001" maxlength="5" title="Codigo postal para consultar stock y precios locales" aria-label="Codigo postal" />
           </div>
-          <a href="https://github.com/jfpaardoo/nutri-cart-ai" target="_blank" rel="noreferrer" class="github-link" title="Ver repositorio en GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <a href="https://github.com/jfpaardoo/nutri-cart-ai" target="_blank" rel="noreferrer" class="github-link" title="Ver repositorio en GitHub" aria-label="Ver codigo en GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
             </svg>
           </a>
@@ -69,10 +69,10 @@
       <!-- Left Sidebar: Macro & Plan Configuration -->
       <aside class="config-sidebar">
         <!-- Daily Macro Targets Card -->
-        <section class="glass-card config-card">
+        <section class="glass-card config-card" aria-labelledby="dailyTargetsHeading">
           <div class="card-head">
             <div class="head-title">
-              <h2>Objetivos Diarios</h2>
+              <h2 id="dailyTargetsHeading">Objetivos Diarios</h2>
               <span class="sub-label">Calorias y Distribucion</span>
             </div>
             <div class="chip-badge">Builder Pattern</div>
@@ -81,16 +81,16 @@
           <!-- Calories Slider with Quick Presets -->
           <div class="slider-block">
             <div class="slider-header">
-              <span class="label">Meta Energetica</span>
+              <label for="kcalRange" class="label">Meta Energetica</label>
               <span class="kcal-number" id="kcalDisplay">2.100 <small>kcal</small></span>
             </div>
             <div class="range-wrapper">
-              <input type="range" id="kcalRange" min="1400" max="3600" step="50" value="2100" />
+              <input type="range" id="kcalRange" min="1400" max="3600" step="50" value="2100" aria-label="Meta de calorias diarias" />
             </div>
-            <div class="preset-buttons">
-              <button class="preset-chip" onclick="setKcalPreset(1800)">Deficit (1.800)</button>
-              <button class="preset-chip active" onclick="setKcalPreset(2100)">Normo (2.100)</button>
-              <button class="preset-chip" onclick="setKcalPreset(2600)">Superavit (2.600)</button>
+            <div class="preset-buttons" role="group" aria-label="Preajustes de calorias">
+              <button type="button" class="preset-chip" onclick="setKcalPreset(1800)">Deficit (1.800)</button>
+              <button type="button" class="preset-chip active" onclick="setKcalPreset(2100)">Normo (2.100)</button>
+              <button type="button" class="preset-chip" onclick="setKcalPreset(2600)">Superavit (2.600)</button>
             </div>
           </div>
 
@@ -98,11 +98,11 @@
           <div class="macro-inputs-grid">
             <div class="macro-box box-protein">
               <div class="macro-box-header">
-                <span class="macro-symbol prot">P</span>
-                <span class="macro-title">Proteina</span>
+                <span class="macro-symbol prot" aria-hidden="true">P</span>
+                <label for="proteinInput" class="macro-title">Proteina</label>
               </div>
               <div class="macro-val-row">
-                <input type="number" id="proteinInput" value="145" min="40" max="300" />
+                <input type="number" id="proteinInput" value="145" min="40" max="300" aria-label="Gramos de proteina diarios" />
                 <span class="val-unit">g</span>
               </div>
               <span class="macro-calc-cal" id="proteinKcalDisplay">580 kcal</span>
@@ -110,11 +110,11 @@
 
             <div class="macro-box box-carbs">
               <div class="macro-box-header">
-                <span class="macro-symbol carb">C</span>
-                <span class="macro-title">Carbohidratos</span>
+                <span class="macro-symbol carb" aria-hidden="true">C</span>
+                <label for="carbsInput" class="macro-title">Carbohidratos</label>
               </div>
               <div class="macro-val-row">
-                <input type="number" id="carbsInput" value="210" min="40" max="500" />
+                <input type="number" id="carbsInput" value="210" min="40" max="500" aria-label="Gramos de carbohidratos diarios" />
                 <span class="val-unit">g</span>
               </div>
               <span class="macro-calc-cal" id="carbsKcalDisplay">840 kcal</span>
@@ -122,11 +122,11 @@
 
             <div class="macro-box box-fat">
               <div class="macro-box-header">
-                <span class="macro-symbol fat">G</span>
-                <span class="macro-title">Grasas</span>
+                <span class="macro-symbol fat" aria-hidden="true">G</span>
+                <label for="fatInput" class="macro-title">Grasas</label>
               </div>
               <div class="macro-val-row">
-                <input type="number" id="fatInput" value="65" min="20" max="180" />
+                <input type="number" id="fatInput" value="65" min="20" max="180" aria-label="Gramos de grasa diarios" />
                 <span class="val-unit">g</span>
               </div>
               <span class="macro-calc-cal" id="fatKcalDisplay">585 kcal</span>
@@ -134,12 +134,12 @@
           </div>
 
           <!-- Ratio Progress Bar -->
-          <div class="ratio-progress-wrapper">
+          <div class="ratio-progress-wrapper" aria-label="Proporcion de macronutrientes">
             <div class="ratio-labels">
               <span>Ratio Calorico:</span>
               <span class="r-text"><span class="c-prot" id="protPct">28% P</span> · <span class="c-carb" id="carbPct">42% C</span> · <span class="c-fat" id="fatPct">30% G</span></span>
             </div>
-            <div class="segmented-bar">
+            <div class="segmented-bar" aria-hidden="true">
               <div class="segment seg-prot" id="barProt" style="width: 28%"></div>
               <div class="segment seg-carb" id="barCarb" style="width: 42%"></div>
               <div class="segment seg-fat" id="barFat" style="width: 30%"></div>
@@ -149,67 +149,68 @@
           <!-- Planning Options (Days & Meals) -->
           <div class="plan-options">
             <div class="option-row">
-              <label>Dias a planificar:</label>
-              <div class="button-toggle-group">
-                <button class="opt-btn" onclick="setDays(3, this)">3 Dias</button>
-                <button class="opt-btn" onclick="setDays(5, this)">5 Dias</button>
-                <button class="opt-btn active" onclick="setDays(7, this)">7 Dias</button>
+              <span class="opt-label">Dias a planificar:</span>
+              <div class="button-toggle-group" role="group" aria-label="Seleccionar numero de dias">
+                <button type="button" class="opt-btn" onclick="setDays(3, this)">3 Dias</button>
+                <button type="button" class="opt-btn" onclick="setDays(5, this)">5 Dias</button>
+                <button type="button" class="opt-btn active" onclick="setDays(7, this)">7 Dias</button>
               </div>
             </div>
 
             <div class="option-row">
-              <label>Comidas por dia:</label>
-              <div class="button-toggle-group">
-                <button class="opt-btn active" onclick="setMeals(3, this)">3 Comidas</button>
-                <button class="opt-btn" onclick="setMeals(4, this)">4 (+ Snack)</button>
+              <span class="opt-label">Comidas por dia:</span>
+              <div class="button-toggle-group" role="group" aria-label="Seleccionar numero de comidas">
+                <button type="button" class="opt-btn active" onclick="setMeals(3, this)">3 Comidas</button>
+                <button type="button" class="opt-btn" onclick="setMeals(4, this)">4 (+ Snack)</button>
               </div>
             </div>
           </div>
 
           <!-- Action Button -->
-          <button class="btn-generate-main" id="btnGenerate" onclick="generateMealPlan()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <button type="button" class="btn-generate-main" id="btnGenerate" onclick="generateMealPlan()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
             <span class="btn-text">Generar Menu y Cesta</span>
-            <div class="btn-spinner" id="generateSpinner"></div>
+            <div class="btn-spinner" id="generateSpinner" aria-hidden="true"></div>
           </button>
         </section>
 
         <!-- Live Supermarket Strategy Search Card -->
-        <section class="glass-card tool-card">
+        <section class="glass-card tool-card" aria-labelledby="catalogExplorerHeading">
           <div class="card-head">
             <div class="head-title">
-              <h3>Explorador de Catalogo</h3>
+              <h3 id="catalogExplorerHeading">Explorador de Catalogo</h3>
               <span class="sub-label">Estrategia en tiempo real: <strong id="currentStrategyName">Mercadona</strong></span>
             </div>
             <span class="chip-badge subtle">Strategy Pattern</span>
           </div>
 
           <div class="search-field">
-            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
+            <label for="liveSearchInput" class="sr-only">Buscar producto en catalogo</label>
             <input type="text" id="liveSearchInput" placeholder="Buscar producto (ej: pechuga, avena...)" onkeyup="if(event.key==='Enter') searchLiveCatalog()" />
-            <button class="search-submit" onclick="searchLiveCatalog()">Buscar</button>
+            <button type="button" class="search-submit" onclick="searchLiveCatalog()">Buscar</button>
           </div>
 
-          <div class="quick-tags">
-            <span class="tag" onclick="quickSearch('pechuga')">Pechuga</span>
-            <span class="tag" onclick="quickSearch('arroz')">Arroz</span>
-            <span class="tag" onclick="quickSearch('huevos')">Huevos</span>
-            <span class="tag" onclick="quickSearch('salmon')">Salmon</span>
-            <span class="tag" onclick="quickSearch('avena')">Avena</span>
+          <div class="quick-tags" role="group" aria-label="Busquedas rapidas sugeridas">
+            <button type="button" class="tag" onclick="quickSearch('pechuga')">Pechuga</button>
+            <button type="button" class="tag" onclick="quickSearch('arroz')">Arroz</button>
+            <button type="button" class="tag" onclick="quickSearch('huevos')">Huevos</button>
+            <button type="button" class="tag" onclick="quickSearch('salmon')">Salmon</button>
+            <button type="button" class="tag" onclick="quickSearch('avena')">Avena</button>
           </div>
 
-          <div id="liveSearchResults" class="live-results-feed"></div>
+          <div id="liveSearchResults" class="live-results-feed" aria-live="polite"></div>
         </section>
       </aside>
 
       <!-- Right Content: Results Area -->
-      <section class="results-viewport">
-        <!-- Hero Metrics Banner (Hidden initially) -->
+      <section class="results-viewport" aria-label="Resultados del plan nutricional y compra">
+        <!-- Hero Metrics Banner -->
         <div class="hero-metrics-grid" id="metricsRow" style="display: none;">
           <div class="metric-glass-card cost-card">
             <div class="metric-top">
@@ -243,9 +244,9 @@
 
         <!-- Navigation Tabs -->
         <div class="view-tabs-bar" id="viewTabs" style="display: none;">
-          <div class="tab-buttons">
-            <button class="tab-pill active" id="tabMeals" onclick="switchTab('meals')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="tab-buttons" role="tablist">
+            <button type="button" role="tab" aria-selected="true" class="tab-pill active" id="tabMeals" onclick="switchTab('meals')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -253,8 +254,8 @@
               </svg>
               <span>Menu Semanal y Recetas</span>
             </button>
-            <button class="tab-pill" id="tabBasket" onclick="switchTab('basket')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" role="tab" aria-selected="false" class="tab-pill" id="tabBasket" onclick="switchTab('basket')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -263,22 +264,22 @@
             </button>
           </div>
 
-          <!-- Day quick filter (only shown on meals tab) -->
-          <div class="day-filters" id="dayFilterGroup">
-            <button class="day-chip active" onclick="filterDay('all', this)">Todos</button>
-            <button class="day-chip" onclick="filterDay('Lunes', this)">Lunes</button>
-            <button class="day-chip" onclick="filterDay('Martes', this)">Martes</button>
-            <button class="day-chip" onclick="filterDay('Miercoles', this)">Miercoles</button>
-            <button class="day-chip" onclick="filterDay('Jueves', this)">Jueves</button>
-            <button class="day-chip" onclick="filterDay('Viernes', this)">Viernes</button>
-            <button class="day-chip" onclick="filterDay('Sabado', this)">Sabado</button>
-            <button class="day-chip" onclick="filterDay('Domingo', this)">Domingo</button>
+          <!-- Day quick filter -->
+          <div class="day-filters" id="dayFilterGroup" role="group" aria-label="Filtrar por dia de la semana">
+            <button type="button" class="day-chip active" onclick="filterDay('all', this)">Todos</button>
+            <button type="button" class="day-chip" onclick="filterDay('Lunes', this)">Lunes</button>
+            <button type="button" class="day-chip" onclick="filterDay('Martes', this)">Martes</button>
+            <button type="button" class="day-chip" onclick="filterDay('Miercoles', this)">Miercoles</button>
+            <button type="button" class="day-chip" onclick="filterDay('Jueves', this)">Jueves</button>
+            <button type="button" class="day-chip" onclick="filterDay('Viernes', this)">Viernes</button>
+            <button type="button" class="day-chip" onclick="filterDay('Sabado', this)">Sabado</button>
+            <button type="button" class="day-chip" onclick="filterDay('Domingo', this)">Domingo</button>
           </div>
         </div>
 
         <!-- Initial Placeholder State -->
         <div class="welcome-screen" id="welcomeCard">
-          <div class="welcome-graphic">
+          <div class="welcome-graphic" aria-hidden="true">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5">
               <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
               <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -320,8 +321,8 @@
               <h3>Desglose de Compra Optimizado</h3>
               <p>Cantidades agrupadas por producto y redondeadas al formato de venta de tienda para minimizar el desperdicio.</p>
             </div>
-            <button class="btn-copy-list" onclick="copyShoppingList()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="btn-copy-list" onclick="copyShoppingList()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
               </svg>
@@ -335,6 +336,7 @@
     </main>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Main ES6 Module -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
