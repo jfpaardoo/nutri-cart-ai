@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriSuper Planner | Menú Semanal con Precios Reales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Navbar Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-icon">🥗</div>
+        <div class="brand-text">
+          <h1>NutriSuper <span>Planner</span></h1>
+          <p class="tagline">Menús con IA & Precios Reales de Supermercado</p>
+        </div>
+      </div>
+      
+      <div class="strategy-selector">
+        <div class="selector-label">Estrategia Activa:</div>
+        <div class="supermarket-pill active" id="btnMercadona" onclick="selectSupermarket('mercadona')">
+          <span class="pill-dot"></span> Mercadona
+        </div>
+        <div class="supermarket-pill" id="btnAldi" onclick="selectSupermarket('aldi')">
+          <span class="pill-dot"></span> Aldi
+        </div>
+      </div>
+
+      <div class="postal-widget">
+        <label for="postalCodeInput">📍 Código Postal:</label>
+        <input type="text" id="postalCodeInput" value="46001" maxlength="5" />
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+      <!-- Left / Configuration Sidebar -->
+      <aside class="control-panel">
+        <div class="card panel-card">
+          <div class="panel-header">
+            <h2>🎯 Objetivos Diarios</h2>
+            <span class="badge">Patrón Builder</span>
+          </div>
+
+          <div class="form-group">
+            <div class="group-header">
+              <label>Calorías Objetivo</label>
+              <span class="val-display" id="kcalDisplay">2.100 kcal</span>
+            </div>
+            <input type="range" id="kcalRange" min="1200" max="3800" step="50" value="2100" />
+          </div>
+
+          <div class="macro-grid">
+            <div class="macro-item macro-protein">
+              <span class="macro-name">Proteína</span>
+              <div class="macro-input-wrapper">
+                <input type="number" id="proteinInput" value="145" min="40" max="300" />
+                <span class="unit">g</span>
+              </div>
+            </div>
+
+            <div class="macro-item macro-carbs">
+              <span class="macro-name">Carbohidratos</span>
+              <div class="macro-input-wrapper">
+                <input type="number" id="carbsInput" value="210" min="40" max="500" />
+                <span class="unit">g</span>
+              </div>
+            </div>
+
+            <div class="macro-item macro-fat">
+              <span class="macro-name">Grasas</span>
+              <div class="macro-input-wrapper">
+                <input type="number" id="fatInput" value="65" min="20" max="180" />
+                <span class="unit">g</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-bar-container">
+            <div class="macro-bar-label">Distribución calórica:</div>
+            <div class="macro-stacked-bar">
+              <div class="bar-segment bar-prot" id="barProt" style="width: 28%"></div>
+              <div class="bar-segment bar-carb" id="barCarb" style="width: 42%"></div>
+              <div class="bar-segment bar-fat" id="barFat" style="width: 30%"></div>
+            </div>
+            <div class="bar-legend">
+              <span class="leg-prot">● Prot: <strong id="protPct">28%</strong></span>
+              <span class="leg-carb">● Carb: <strong id="carbPct">42%</strong></span>
+              <span class="leg-fat">● Grasas: <strong id="fatPct">30%</strong></span>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="form-group">
+            <label>Planificación Semanal</label>
+            <div class="toggle-group">
+              <button class="toggle-btn" onclick="setDays(3, this)">3 Días</button>
+              <button class="toggle-btn" onclick="setDays(5, this)">5 Días</button>
+              <button class="toggle-btn active" onclick="setDays(7, this)">7 Días</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Comidas al Día</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" onclick="setMeals(3, this)">3 (Des./Com./Cena)</button>
+              <button class="toggle-btn" onclick="setMeals(4, this)">4 (+ Snack)</button>
+            </div>
+          </div>
+
+          <button class="btn-generate" id="btnGenerate" onclick="generateMealPlan()">
+            <span class="btn-text">⚡ Generar Menú & Cesta</span>
+            <div class="spinner" id="generateSpinner"></div>
+          </button>
+        </div>
+
+        <!-- Quick Supermarket Search Tool (Live Strategy Tester) -->
+        <div class="card test-tool-card">
+          <div class="panel-header">
+            <h3>🔍 Explorador de Catálogo</h3>
+            <span class="badge badge-subtle">Live Strategy</span>
+          </div>
+          <p class="tool-desc">Consulta en tiempo real cualquier producto en <strong id="currentStrategyName">Mercadona</strong>:</p>
+          <div class="search-box">
+            <input type="text" id="liveSearchInput" placeholder="Ej: pechuga, avena, salmón..." onkeyup="if(event.key==='Enter') searchLiveCatalog()" />
+            <button onclick="searchLiveCatalog()">Buscar</button>
+          </div>
+          <div id="liveSearchResults" class="live-results"></div>
+        </div>
+      </aside>
+
+      <!-- Right / Main Results Area -->
+      <section class="results-area">
+        <!-- Top Metrics Bar -->
+        <div class="metrics-row" id="metricsRow" style="display: none;">
+          <div class="metric-card">
+            <span class="metric-title">Coste Estimado Cesta</span>
+            <div class="metric-val text-green" id="metricTotalCost">-- €</div>
+            <span class="metric-sub" id="metricCostPerDay">-- € / día</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Promedio Diario</span>
+            <div class="metric-val" id="metricAvgCalories">-- kcal</div>
+            <span class="metric-sub" id="metricAvgProtein">-- g proteína</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Supermercado</span>
+            <div class="metric-val text-accent" id="metricSupermarket">--</div>
+            <span class="metric-sub" id="metricItemsCount">-- productos en cesta</span>
+          </div>
+        </div>
+
+        <!-- View Switcher Tabs -->
+        <div class="view-tabs" id="viewTabs" style="display: none;">
+          <button class="tab-btn active" id="tabMeals" onclick="switchTab('meals')">
+            📅 Menú Semanal y Recetas
+          </button>
+          <button class="tab-btn" id="tabBasket" onclick="switchTab('basket')">
+            🛒 Cesta de la Compra (<span id="basketCountBadge">0</span>)
+          </button>
+        </div>
+
+        <!-- Placeholder when empty -->
+        <div class="welcome-card" id="welcomeCard">
+          <div class="welcome-icon">🍲</div>
+          <h2>Planifica tu semana nutricional con precios reales</h2>
+          <p>Ajusta tus calorías y macronutrientes en el panel lateral y pulsa <strong>Generar Menú & Cesta</strong>.</p>
+          <div class="patterns-showcase">
+            <div class="pattern-tag"><strong>Strategy:</strong> Mercadona / Aldi</div>
+            <div class="pattern-tag"><strong>Chain of Resp.:</strong> OFF + USDA Nutrition</div>
+            <div class="pattern-tag"><strong>Builder:</strong> Weekly Menu Constructor</div>
+            <div class="pattern-tag"><strong>Proxy Cache:</strong> Rate-limit Protection</div>
+          </div>
+        </div>
+
+        <!-- Meal Plan View -->
+        <div class="meals-container" id="mealsContainer" style="display: none;"></div>
+
+        <!-- Shopping Basket View -->
+        <div class="basket-container" id="basketContainer" style="display: none;">
+          <div class="basket-header">
+            <h3>Lista de la compra calculada para la semana</h3>
+            <p>Cantidades agrupadas y redondeadas por formato de venta en tienda.</p>
+          </div>
+          <div class="basket-grid" id="basketGrid"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
