@@ -1,11 +1,11 @@
 /**
  * Main Application Orchestrator
- * Bootstraps event listeners, reactive UI updates, and user interactions.
+ * Bootstraps event listeners, reactive UI updates, user interactions, and modal dialogs.
  */
 
-import { state, calculateBalancedMacros, computeMacroPercentages } from "./state.js";
+import { state, calculateBalancedMacros, computeMacroPercentages, getProductById } from "./state.js";
 import { generateMealPlanApi, searchCatalogApi } from "./api.js";
-import { renderHeroMetrics, renderMeals, renderBasket, renderSearchResults } from "./ui-render.js";
+import { renderHeroMetrics, renderMeals, renderBasket, renderSearchResults, renderProductModal } from "./ui-render.js";
 
 // DOM Elements
 const kcalRange = document.getElementById("kcalRange");
@@ -22,11 +22,13 @@ const btnAldi = document.getElementById("btnAldi");
 const currentStrategyName = document.getElementById("currentStrategyName");
 const btnGenerate = document.getElementById("btnGenerate");
 const generateSpinner = document.getElementById("generateSpinner");
+const productModalOverlay = document.getElementById("productModalOverlay");
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners();
   updateMacroBars();
+  setupModalListeners();
 });
 
 function setupEventListeners() {
@@ -54,6 +56,45 @@ function setupEventListeners() {
     postalCodeInput.addEventListener("change", (e) => {
       state.postalCode = e.target.value.trim() || "46001";
     });
+  }
+}
+
+function setupModalListeners() {
+  // Close modal when clicking outside modal-card on backdrop
+  if (productModalOverlay) {
+    productModalOverlay.addEventListener("click", (e) => {
+      if (e.target === productModalOverlay) {
+        closeProductModal();
+      }
+    });
+  }
+
+  // Close modal on Escape key press
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && productModalOverlay && productModalOverlay.style.display !== "none") {
+      closeProductModal();
+    }
+  });
+}
+
+export function openProductModal(productId) {
+  const product = getProductById(productId);
+  if (!product) {
+    console.warn(`Producto no encontrado en el estado local: ${productId}`);
+    return;
+  }
+
+  renderProductModal(product);
+  if (productModalOverlay) {
+    productModalOverlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+}
+
+export function closeProductModal() {
+  if (productModalOverlay) {
+    productModalOverlay.style.display = "none";
+    document.body.style.overflow = "";
   }
 }
 
@@ -271,3 +312,5 @@ window.switchTab = switchTab;
 window.copyShoppingList = copyShoppingList;
 window.quickSearch = quickSearch;
 window.searchLiveCatalog = searchLiveCatalog;
+window.openProductModal = openProductModal;
+window.closeProductModal = closeProductModal;

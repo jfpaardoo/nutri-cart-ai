@@ -1,7 +1,9 @@
 /**
  * UI Rendering Module
- * Responsible for constructing DOM elements for metrics, recipes, ingredients, and basket.
+ * Responsible for constructing DOM elements for metrics, recipes, ingredients, basket, and product modal.
  */
+
+import { registerProduct } from "./state.js";
 
 export function renderHeroMetrics(mealPlan, basket, daysCount, supermarket) {
   const totalCost = basket.total_cost;
@@ -51,23 +53,28 @@ export function renderMeals(mealPlan, currentFilterDay) {
         // Render structured ingredients table
         const ingredientsRows = meal.ingredients
           .map((ing) => {
-            const matchedTag = ing.matched_product
-              ? `<div class="matched-product-badge">
-                   <span class="store-tag">${ing.matched_product.brand || ing.matched_product.supermarket}</span>
-                   <span class="product-title" title="${ing.matched_product.name}">${ing.matched_product.name}</span>
-                   <span class="product-price">${ing.matched_product.price.toFixed(2)} EUR</span>
-                 </div>`
-              : `<span class="matched-pending">Generico</span>`;
+            let matchedTag = `<span class="matched-pending">Generico</span>`;
+
+            if (ing.matched_product) {
+              registerProduct(ing.matched_product);
+              matchedTag = `
+                <button type="button" class="matched-product-badge clickable" onclick="openProductModal('${ing.matched_product.id}')" title="Ver detalles de ${ing.matched_product.name}">
+                  <span class="store-tag">${ing.matched_product.brand || ing.matched_product.supermarket}</span>
+                  <span class="product-title">${ing.matched_product.name}</span>
+                  <span class="product-price">${ing.matched_product.price.toFixed(2)} EUR</span>
+                </button>
+              `;
+            }
 
             const macroBreakdown = ing.computed_macros
               ? `<span class="ing-macros-sub">
-                   ${ing.computed_macros.calories} kcal · ${ing.computed_macros.protein}g P · ${ing.computed_macros.carbs}g C · ${ing.computed_macros.fat}g G
+                   ${ing.computed_macros.calories} kcal | ${ing.computed_macros.protein}g P | ${ing.computed_macros.carbs}g C | ${ing.computed_macros.fat}g G
                  </span>`
               : "";
 
             return `
               <div class="ingredient-card-item">
-                <div class="ing-qty-pill">
+                <div class="ing-qty-pill" title="Cantidad necesaria">
                   <span class="qty-num">${ing.amount_grams}</span>
                   <span class="qty-unit">g</span>
                 </div>
@@ -119,7 +126,7 @@ export function renderMeals(mealPlan, currentFilterDay) {
             </div>
 
             <details class="instructions-accordion">
-              <summary>Ver pasos de preparacion (${meal.instructions.length})</summary>
+              <summary>Pasos de preparacion (${meal.instructions.length})</summary>
               <ol class="steps-numbered-list">${instructionsHtml}</ol>
             </details>
           </article>
@@ -153,8 +160,20 @@ export function renderBasket(basket) {
 
   basket.items.forEach((item) => {
     const product = item.product;
+    registerProduct(product);
+
     const card = document.createElement("article");
-    card.className = "basket-item-tile";
+    card.className = "basket-item-tile clickable";
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.title = "Pulsar para ver ficha tecnica del producto";
+    card.onclick = () => window.openProductModal(product.id);
+    card.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        window.openProductModal(product.id);
+      }
+    };
 
     const imgElement = product.image_url
       ? `<img src="${product.image_url}" alt="${product.name}" loading="lazy" />`
@@ -195,17 +214,19 @@ export function renderSearchResults(products, query, container) {
   container.innerHTML = products
     .slice(0, 6)
     .map((product) => {
+      registerProduct(product);
+
       const img = product.image_url
         ? `<img src="${product.image_url}" alt="${product.name}" />`
         : `<span class="feed-item-placeholder">Item</span>`;
 
       return `
-        <div class="feed-item">
+        <div class="feed-item clickable" role="button" tabindex="0" onclick="openProductModal('${product.id}')" onkeydown="if(event.key==='Enter'||event.key===' ') openProductModal('${product.id}')" title="Ver detalles de ${product.name}">
           <div class="feed-item-left">
             ${img}
             <div class="feed-text-col">
               <span class="feed-name" title="${product.name}">${product.name}</span>
-              <span class="feed-sub">${product.brand || product.supermarket} · ${product.package_format}</span>
+              <span class="feed-sub">${product.brand || product.supermarket} | ${product.package_format}</span>
             </div>
           </div>
           <span class="feed-price">${product.price.toFixed(2)} EUR</span>
@@ -213,4 +234,115 @@ export function renderSearchResults(products, query, container) {
       `;
     })
     .join("");
+}
+
+/**
+ * Builds and renders detailed modal content for a product.
+ */
+export function renderProductModal(product) {
+  const modalBody = document.getElementById("productModalBody");
+  if (!modalBody || !product) return;
+
+  const isMercadona = (product.supermarket || "").toLowerCase() === "mercadona";
+  const storeClass = isMercadona ? "mercadona" : "aldi";
+  const storeName = isMercadona ? "Mercadona" : "Aldi";
+
+  const imgHtml = product.image_url
+    ? `<img src="${product.image_url}" alt="${product.name}" />`
+    : `<div class="modal-img-placeholder">Sin imagen disponible</div>`;
+
+  const refPriceText = product.reference_price
+    ? `${product.reference_price.toFixed(2)} EUR / ${product.reference_format || "kg"}`
+    : "Precio por unidad";
+
+  const netWeightText = product.net_weight_grams
+    ? `${product.net_weight_grams} gramos`
+    : (product.package_format || "Unidad estandar");
+
+  // Nutritional values
+  const macros = product.macros_100g || null;
+  const nutriHtml = macros
+    ? `
+      <div class="modal-nutrition-block">
+        <div class="nutrition-heading">
+          <span>Valores Nutricionales</span>
+          <small>Por cada 100g de producto</small>
+        </div>
+        <div class="nutrition-grid">
+          <div class="nutri-box nutri-cal">
+            <span class="nutri-num">${macros.calories || 0}</span>
+            <span class="nutri-label">kcal</span>
+          </div>
+          <div class="nutri-box nutri-prot">
+            <span class="nutri-num">${macros.protein || 0}g</span>
+            <span class="nutri-label">Proteina</span>
+          </div>
+          <div class="nutri-box nutri-carb">
+            <span class="nutri-num">${macros.carbs || 0}g</span>
+            <span class="nutri-label">Carbohidratos</span>
+          </div>
+          <div class="nutri-box nutri-fat">
+            <span class="nutri-num">${macros.fat || 0}g</span>
+            <span class="nutri-label">Grasas</span>
+          </div>
+        </div>
+      </div>
+    `
+    : `
+      <div class="modal-nutrition-block">
+        <div class="nutrition-heading">
+          <span>Valores Nutricionales</span>
+          <small>Datos del proveedor</small>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.25rem;">
+          Este articulo se computa con las tablas nutricionales estándar integradas en el optimizador.
+        </p>
+      </div>
+    `;
+
+  modalBody.innerHTML = `
+    <div class="modal-header-block">
+      <div class="modal-badges-row">
+        <span class="modal-store-chip ${storeClass}">${storeName}</span>
+        ${product.brand ? `<span class="modal-brand-pill">${product.brand}</span>` : ""}
+      </div>
+      <h3 class="modal-title" id="modalProductTitle">${product.name}</h3>
+    </div>
+
+    <div class="modal-content-layout">
+      <div class="modal-img-card">
+        ${imgHtml}
+      </div>
+
+      <div class="modal-info-col">
+        <div class="modal-price-banner">
+          <div>
+            <span class="modal-main-price">${product.price.toFixed(2)} EUR</span>
+          </div>
+          <div class="modal-ref-price">${refPriceText}</div>
+        </div>
+
+        <div class="modal-details-list">
+          <div class="detail-row">
+            <span>Formato:</span>
+            <strong>${product.package_format || "Estándar"}</strong>
+          </div>
+          <div class="detail-row">
+            <span>Peso / Contenido:</span>
+            <strong>${netWeightText}</strong>
+          </div>
+          <div class="detail-row">
+            <span>Codigo EAN:</span>
+            <strong>${product.ean || "No especificado"}</strong>
+          </div>
+          <div class="detail-row">
+            <span>Disponibilidad:</span>
+            <strong style="color: var(--primary-light);">En Stock Local</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ${nutriHtml}
+  `;
 }

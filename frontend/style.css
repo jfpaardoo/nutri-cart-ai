@@ -1,3 +1,17 @@
+
+/* Screen Reader Only - Accessible WCAG hiding */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+}
+
 :root {
   --bg-deep: #070a11;
   --bg-surface: #0e1424;
@@ -1582,3 +1596,348 @@ body {
   color: var(--text-muted);
   line-height: 1.45;
 }
+
+/* Catalog Explorer Search Field Layout */
+.search-field {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-card) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.45rem 0.75rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: var(--transition) !important;
+}
+
+.search-field:focus-within {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2) !important;
+}
+
+.search-field .search-icon {
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+
+.search-field input {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-pure) !important;
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  outline: none !important;
+}
+
+.search-field input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-submit {
+  flex-shrink: 0 !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  color: var(--primary-light) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  padding: 0.4rem 0.85rem !important;
+  border-radius: var(--radius-xs) !important;
+  cursor: pointer !important;
+  transition: var(--transition) !important;
+}
+
+.search-submit:hover {
+  background: var(--primary) !important;
+  color: #03201a !important;
+}
+
+/* Clickable items with hover feedback */
+.clickable {
+  cursor: pointer !important;
+  user-select: none;
+}
+
+.feed-item.clickable:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(16, 185, 129, 0.4);
+  transform: translateX(3px);
+}
+
+.matched-product-badge.clickable:hover {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.basket-item-tile.clickable:hover {
+  border-color: var(--primary);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.18);
+}
+
+
+/* ==========================================================================
+   Product Detail Modal Dialog Styles
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 7, 14, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: modalFadeIn 0.22s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  max-width: 580px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15);
+  animation: modalSlideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+}
+
+.modal-header-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.modal-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-store-chip {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-xs);
+}
+
+.modal-store-chip.mercadona {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: var(--primary-light);
+}
+
+.modal-store-chip.aldi {
+  background: rgba(6, 182, 212, 0.18);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: var(--accent-cyan);
+}
+
+.modal-brand-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.modal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-pure);
+  line-height: 1.25;
+}
+
+.modal-content-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 540px) {
+  .modal-content-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-img-card {
+  width: 100%;
+  height: 190px;
+  background: #090d16;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.modal-img-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.modal-img-placeholder {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  font-weight: 600;
+}
+
+.modal-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.modal-price-banner {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.modal-main-price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--primary-light);
+}
+
+.modal-ref-price {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.modal-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+}
+
+.detail-row strong {
+  color: var(--text-pure);
+}
+
+/* Nutritional breakdown inside modal */
+.modal-nutrition-block {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+}
+
+.nutrition-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nutrition-heading small {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: normal;
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.nutri-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-xs);
+  padding: 0.55rem 0.4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nutri-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.nutri-label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.nutri-cal .nutri-num { color: var(--text-pure); }
+.nutri-prot .nutri-num { color: var(--accent-cyan); }
+.nutri-carb .nutri-num { color: var(--accent-amber); }
+.nutri-fat .nutri-num { color: var(--accent-rose); }

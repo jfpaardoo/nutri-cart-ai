@@ -16,7 +16,24 @@ export const state = {
   currentFilterDay: "all",
   currentMealPlan: null,
   currentBasket: null,
+  productsById: {},
 };
+
+/**
+ * Registers a product in the global lookup map for fast retrieval by ID.
+ */
+export function registerProduct(product) {
+  if (product && product.id) {
+    state.productsById[product.id] = product;
+  }
+}
+
+/**
+ * Retrieves a registered product by its ID.
+ */
+export function getProductById(productId) {
+  return state.productsById[productId] || null;
+}
 
 /**
  * Calculates balanced macros proportionally to target calories.

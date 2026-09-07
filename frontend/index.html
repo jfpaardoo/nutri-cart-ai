@@ -75,7 +75,7 @@
               <h2 id="dailyTargetsHeading">Objetivos Diarios</h2>
               <span class="sub-label">Calorias y Distribucion</span>
             </div>
-            <div class="chip-badge">Builder Pattern</div>
+            <div class="chip-badge">Ajuste Nutricional</div>
           </div>
 
           <!-- Calories Slider with Quick Presets -->
@@ -181,9 +181,9 @@
           <div class="card-head">
             <div class="head-title">
               <h3 id="catalogExplorerHeading">Explorador de Catalogo</h3>
-              <span class="sub-label">Estrategia en tiempo real: <strong id="currentStrategyName">Mercadona</strong></span>
+              <span class="sub-label">Supermercado activo: <strong id="currentStrategyName">Mercadona</strong></span>
             </div>
-            <span class="chip-badge subtle">Strategy Pattern</span>
+            <span class="chip-badge subtle">Catalogo en Vivo</span>
           </div>
 
           <div class="search-field">
@@ -293,20 +293,20 @@
           
           <div class="architecture-pills">
             <div class="arch-pill">
-              <strong>Strategy Pattern</strong>
-              <span>Mercadona / Aldi</span>
+              <strong>Supermercados Reales</strong>
+              <span>Mercadona y Aldi sincronizados</span>
             </div>
             <div class="arch-pill">
-              <strong>Chain of Responsibility</strong>
-              <span>Resolucion Nutricional</span>
+              <strong>Precision Nutricional</strong>
+              <span>Gramos y macros exactos</span>
             </div>
             <div class="arch-pill">
-              <strong>Builder Pattern</strong>
-              <span>Constructor de Menus</span>
+              <strong>Cesta Optimizada</strong>
+              <span>Ahorro maximo y cero desperdicio</span>
             </div>
             <div class="arch-pill">
-              <strong>Cache Proxy</strong>
-              <span>Optimizacion de Consultas</span>
+              <strong>Plan Flexible</strong>
+              <span>Personalizado a tus objetivos</span>
             </div>
           </div>
         </div>
@@ -337,6 +337,17 @@
   </div>
 
   <!-- Main ES6 Module -->
+
+    <!-- Product Detail Modal Dialog -->
+    <div class="modal-overlay" id="productModalOverlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+      <div class="modal-card">
+        <button type="button" class="modal-close-btn" onclick="closeProductModal()" aria-label="Cerrar detalles del producto">&times;</button>
+        <div id="productModalBody">
+          <!-- Dynamically populated by ui-render.js -->
+        </div>
+      </div>
+    </div>
+
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
